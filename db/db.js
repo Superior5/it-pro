@@ -3,7 +3,8 @@ const mongoURL = "mongodb+srv://root:root@cluster0.gfr4hib.mongodb.net/?retryWri
 
 
 export default async function connect() {
-    mongoose.connect(mongoURL).then(() => {
+    mongoose.set("strictQuery", false);
+    await mongoose.connect(mongoURL).then(() => {
         console.log("database work");
     }).catch((err) => {
         console.log(err);
