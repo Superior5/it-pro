@@ -17,7 +17,7 @@ export async function addNews(req, res) {
     await News.insertMany({
         title: date.title,
         content: date.content,
-        img: req.file?.path,
+        img: req.file?.path.replaceAll("\\", "/"),
     }).then(() => {
         res.json({ message: "Данные добавлены." });
     }).catch(() => {
@@ -30,8 +30,9 @@ export async function addNews(req, res) {
 export async function deleteNews(req, res) {
     let date = req.body;
 
+    
     await News.deleteOne({
-        id: date.id,
+        _id: date.id,
     }).then(() => {
         res.json({ message: "Данные добавлены." });
     }).catch(() => {
@@ -44,12 +45,14 @@ export async function deleteNews(req, res) {
 export async function updateNews(req, res) {
     let date = req.body;
 
+
+
     await News.updateOne({
-        id: date.id,
+        _id: date.id,
     }, {
         title: date.title,
         content: date.content,
-        img: req.file?.path,
+        img: req.file?.path.replaceAll("\\", "/"),
     }).then(() => {
         res.json({ message: "Данные добавлены." });
     }).catch(() => {
