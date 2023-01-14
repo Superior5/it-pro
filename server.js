@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import connect from "./db/db.js";
 import userRouter from "./routers/userRouters.js";
 import newsRouter from "./routers/newsRouters.js";
+import endTimeRouter from "./routers/endTimeRouters.js";
 
 connect();
 
@@ -18,6 +19,8 @@ app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')
 
 app.use('/api', userRouter);
 app.use('/api', newsRouter);
+app.use('/api', endTimeRouter);
+
 
 
 

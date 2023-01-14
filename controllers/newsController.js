@@ -30,7 +30,7 @@ export async function addNews(req, res) {
 export async function deleteNews(req, res) {
     let date = req.body;
 
-    
+
     await News.deleteOne({
         _id: date.id,
     }).then(() => {
@@ -44,8 +44,6 @@ export async function deleteNews(req, res) {
 
 export async function updateNews(req, res) {
     let date = req.body;
-
-
 
     await News.updateOne({
         _id: date.id,
