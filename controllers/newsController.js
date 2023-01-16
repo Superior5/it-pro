@@ -15,7 +15,9 @@ export async function addNews(req, res) {
     let date = req.body;
 
     await News.insertMany({
-        img: req.file?.path.replaceAll("\\", "/"),
+        title: date.title,
+        content: date.content,
+        img: date.img
     }).then(() => {
         res.json({ message: "Данные добавлены." });
     }).catch(() => {
@@ -24,6 +26,11 @@ export async function addNews(req, res) {
 };
 
 
+export async function uploadImage(req, res) {
+    let date = req.body;
+
+    res.json({imgPath: req.file?.path.replaceAll("\\", "/")};
+};
 
 export async function deleteNews(req, res) {
     let date = req.body;
