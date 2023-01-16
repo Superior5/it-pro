@@ -15,8 +15,6 @@ export async function addNews(req, res) {
     let date = req.body;
 
     await News.insertMany({
-        title: date.title,
-        content: date.content,
         img: req.file?.path.replaceAll("\\", "/"),
     }).then(() => {
         res.json({ message: "Данные добавлены." });
