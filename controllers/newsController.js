@@ -29,7 +29,7 @@ export async function addNews(req, res) {
 
 export async function deleteNews(req, res) {
     let date = req.body;
-
+    console.log(date);
 
     await News.deleteOne({
         _id: date.id,
