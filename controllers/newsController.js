@@ -29,7 +29,7 @@ export async function addNews(req, res) {
 export async function uploadImage(req, res) {
     let date = req.body;
 
-    res.json({imgPath: req.file?.path.replaceAll("\\", "/")});
+    res.json({imgPath: req.files[0]?.path.replaceAll("\\", "/")});
 };
 
 export async function deleteNews(req, res) {
