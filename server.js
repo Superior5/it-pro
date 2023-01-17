@@ -25,6 +25,6 @@ app.use('/api', endTimeRouter);
 
 
 
-app.listen(procces.env.PORT || 5100, () => {
+app.listen(process.env.PORT || 5100, () => {
     console.log('server work');
 });
