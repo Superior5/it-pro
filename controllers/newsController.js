@@ -29,7 +29,8 @@ export async function addNews(req, res) {
 export async function uploadImage(req, res) {
     let date = req.body;
 
-    res.json({imgPath: req.file?.path.replaceAll("\\", "/")});
+    res.json({ imgPath: req.files[0]?.path.replaceAll("\\", "/") });
+
 };
 
 export async function deleteNews(req, res) {
@@ -55,9 +56,9 @@ export async function updateNews(req, res) {
     }, {
         title: date.title,
         content: date.content,
-        img: req.file?.path.replaceAll("\\", "/"),
+        img: date.img
     }).then(() => {
-        res.json({ message: "Данные добавлены." });
+        res.json({ message: "Данные обновлены." });
     }).catch(() => {
         res.status(300).json({ message: "Произошла ошибка при обновлении." });
     });
