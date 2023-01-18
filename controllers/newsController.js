@@ -13,7 +13,7 @@ export async function getNews(req, res) {
 
 export async function addNews(req, res) {
     let date = req.body;
-
+    
     await News.insertMany({
         title: date.title,
         content: date.content,
@@ -29,7 +29,7 @@ export async function addNews(req, res) {
 export async function uploadImage(req, res) {
     let date = req.body;
 
-    res.json({imgPath: req.files[0]?.path.replaceAll("\\", "/")});
+    res.json({imgPath: req.file?.path.replaceAll("\\", "/")});
 };
 
 export async function deleteNews(req, res) {

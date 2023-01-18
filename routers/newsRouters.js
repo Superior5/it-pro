@@ -5,8 +5,8 @@ import fileMiddleware from '../middleware/file.js';
 const router = Router();
 
 router.get('/getNews', getNews);
-router.post('/upload', fileMiddleware.any(), uploadImage);
 router.post('/addNews', addNews);
+router.post('/upload', fileMiddleware.single('img'), uploadImage);
 router.post('/updateNews', fileMiddleware.single('img'), updateNews);
 router.post('/deleteNews', deleteNews);
 
