@@ -1,7 +1,13 @@
-export function checkAccess(req, res, next) {
-   const token = req.body.token;
+import Admin from "../models/adminModel.js";
+import Token from "../models/tokenModel.js";
 
-   if (token === undefined) {
+export async function checkAccess(req, res, next) {
+   const token = await Token.find( {
+      token: req.get('Authorization'),
+   });
+
+
+   if (token[0] === undefined) {
       res.json({ msg: "Отказ в доступе" });
    }
    else {
