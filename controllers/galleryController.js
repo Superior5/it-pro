@@ -15,9 +15,7 @@ export async function addGallery(req, res) {
         res.json({msg: 'данные добавлены'})
     }).catch(()=> {
         res.json({msg: 'ошибка при добавлении'})
-    })
-
-  
+    }) 
 }
 
 export async function getGalleries(req, res) {
