@@ -1,4 +1,4 @@
-import Gallery from "../models/adminModel.js";
+import Gallery from "../models/galleryModel.js";
 
 
 export async function addGallery(req, res) {
