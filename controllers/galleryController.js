@@ -7,7 +7,9 @@ export async function addGallery(req, res) {
     for(let el of req.files) {
         imgPaths.push(el?.path.replaceAll("\\", "/"));
     }
+
     console.log(imgPaths);
+
     await Gallery.insertMany({
         year: date.year,
         imgs: imgPaths,
@@ -19,6 +21,12 @@ export async function addGallery(req, res) {
 }
 
 export async function getGalleries(req, res) {
-
-    res.json(await Gallery.find());
+    
+    let galleryArr = await Gallery.find();
+    let result = {};
+    galleryArr.forEach((el)=> {
+        result[el.year] = el.imgs;
+    })
+    
+    res.json(result);
 };
