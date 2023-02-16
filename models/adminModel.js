@@ -1,11 +1,11 @@
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
 
-const gallerySchema  = Schema({
-    year: String,
-    imgs: Array,
+const adminSchema = Schema({
+   login: String,
+   password: String,
 });
 
-const Gallery = mongoose.model('Gallery', gallerySchema);
+const Admin = mongoose.model('Admin', adminSchema);
 
-export default Gallery;
+export default Admin;

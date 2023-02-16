@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(cors());
 app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
 
@@ -36,9 +36,10 @@ app.post('/api/auth', async (req, res) => {
     console.log(password);
 
     let result = await Admin.find({
-        password: password,
         login: login,
+        password: password,
     });
+    console.log(result);
 
     if (result[0]) {
         let str = new Date().getTime().toString();
@@ -47,7 +48,7 @@ app.post('/api/auth', async (req, res) => {
         await Token.insertMany({
             token: hash,
         })
-        
+
         res.json({ hash });
     }
     else {
