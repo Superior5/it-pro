@@ -1,6 +1,10 @@
 import EndTime from "../models/endTimeModel.js";
 
+
 export async function getTime(req, res) {
+
+
+
 
     await EndTime.find().then(date => {
         res.json(date[0])
@@ -8,6 +12,7 @@ export async function getTime(req, res) {
         res.status(300).json({ msg: 'Ошибка получения даты' })
     });
 }
+
 
 export async function chooseTime(req, res) {
     let time = await EndTime.find();

@@ -1,5 +1,5 @@
 import News from "../models/newsModel.js";
-
+import fs from 'fs';
 
 
 export async function getNews(req, res) {
@@ -13,7 +13,7 @@ export async function getNews(req, res) {
 
 export async function addNews(req, res) {
     let date = req.body;
-    
+
     await News.insertMany({
         title: date.title,
         content: date.content,
@@ -37,6 +37,15 @@ export async function deleteNews(req, res) {
     let date = req.body;
     console.log(date);
 
+    let news = News.find({
+        _id: date.id,
+    })
+
+
+    fs.unlink(`.${news.img}`, err => {
+        if (err) throw err; // не удалось удалить файл
+    });
+   
     await News.deleteOne({
         _id: date.id,
     }).then(() => {

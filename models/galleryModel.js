@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const gallerySchema  = Schema({
     year: String,
-    imgs: Array,
+    imgs: String,
 });
 
 const Gallery = mongoose.model('Gallery', gallerySchema);
