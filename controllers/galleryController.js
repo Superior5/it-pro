@@ -25,7 +25,8 @@ export async function getGalleries(req, res) {
     let galleryArr = await Gallery.find();
     let result = {};
     galleryArr.forEach((el)=> {
-        result[el.year] = el.imgs;
+        
+        result[el.year] != undefined ? result[el.year].push(...el.imgs) : result[el.year] = el.imgs;
     })
     
     res.json(result);
