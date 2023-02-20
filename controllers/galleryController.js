@@ -15,17 +15,13 @@ export async function addGallery(req, res) {
     }
 
 
-    let galleryArr = await Gallery.find();
-    let result = {};
-    galleryArr.forEach((el) => {
 
-        result[el.year] != undefined ? result[el.year].push(el.imgs) : result[el.year] = [el.imgs];
-    })
 
-    res.json(result);
+
+    res.json({ msg: "Всё ок" });
 }
 
-export const getGalleries = async function(req, res) {
+export const getGalleries = async function (req, res) {
 
     let galleryArr = await Gallery.find();
     let result = {};
@@ -51,8 +47,8 @@ export async function deleteImage(req, res) {
 
     await Gallery.deleteOne({
         imgs: date.img
-    }).catch(()=> {
-        res.json({msg: 'Ошибка удаления'});
+    }).catch(() => {
+        res.json({ msg: 'Ошибка удаления' });
     });
 
 
