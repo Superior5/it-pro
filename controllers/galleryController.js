@@ -18,7 +18,7 @@ export async function addGallery(req, res) {
 
 
 
-    res.json({ msg: "Всё ок" });
+    res.json(await Gallery.find());
 }
 
 export const getGalleries = async function (req, res) {
