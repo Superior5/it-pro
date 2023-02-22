@@ -33,6 +33,7 @@ export async function deleteImage(req, res) {
     let date = req.body;
 
 
+
     fs.unlink(`${date.img}`, err => {
         if (err) throw err; // не удалось удалить файл
     });
@@ -41,6 +42,36 @@ export async function deleteImage(req, res) {
         imgs: date.img
     }).then(() => {
         res.json({ msg: "Данные удалены" })
+    }).catch(() => {
+        res.json({ msg: "Ошибка при удалении" })
+    })
+};
+
+
+export async function deleteGallery(req, res) {
+    let date = req.body;
+
+    let list = await Gallery.find({
+        year: date.year
+    });
+
+    for (let i = 0; i < list.length; i++) {
+
+        fs.access(list[i].imgs, function (error) {
+            if (!error) {
+                fs.unlink(list[i].imgs, err => {
+                    if (err) {
+                        console.log(err);
+                    }; // не удалось удалить файл
+                });
+            }
+        });
+    }
+
+    await Gallery.deleteMany({
+        year: date.year
+    }).then(() => {
+        res.json({ msg: "Галлерея удалена" })
     }).catch(() => {
         res.json({ msg: "Ошибка при удалении" })
     })
