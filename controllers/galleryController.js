@@ -13,15 +13,10 @@ export async function addGallery(req, res) {
             res.json({ msg: 'ошибка при добавлении' })
         })
     }
-
-
-
-
-
-    res.json(await Gallery.find());
+    res.json({ msg: "Данные добавленны" })
 }
 
-export const getGalleries = async function (req, res) {
+export async function getGalleries(req, res) {
 
     let galleryArr = await Gallery.find();
     let result = {};
@@ -34,30 +29,19 @@ export const getGalleries = async function (req, res) {
 };
 
 
-
 export async function deleteImage(req, res) {
     let date = req.body;
 
 
     fs.unlink(`${date.img}`, err => {
-        if (err) {
-            console.log(err)
-        };
+        if (err) throw err; // не удалось удалить файл
     });
 
     await Gallery.deleteOne({
         imgs: date.img
+    }).then(() => {
+        res.json({ msg: "Данные удалены" })
     }).catch(() => {
-        res.json({ msg: 'Ошибка удаления' });
-    });
-
-
-    let galleryArr = await Gallery.find();
-    let result = {};
-    galleryArr.forEach((el) => {
-
-        result[el.year] != undefined ? result[el.year].push(el.imgs) : result[el.year] = [el.imgs];
+        res.json({ msg: "Ошибка при удалении" })
     })
-
-    res.json(result);
 };
