@@ -43,9 +43,11 @@ export async function deleteNews(req, res) {
 
 
     fs.unlink(`.${news.img}`, err => {
-        if (err) throw err; // не удалось удалить файл
+        if (err) {
+            console.log(err);
+        }; // не удалось удалить файл
     });
-   
+
     await News.deleteOne({
         _id: date.id,
     }).then(() => {

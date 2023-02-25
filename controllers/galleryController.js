@@ -13,19 +13,10 @@ export async function addGallery(req, res) {
             res.json({ msg: 'ошибка при добавлении' })
         })
     }
-
-
-    let galleryArr = await Gallery.find();
-    let result = {};
-    galleryArr.forEach((el) => {
-
-        result[el.year] != undefined ? result[el.year].push(el.imgs) : result[el.year] = [el.imgs];
-    })
-
-    res.json(result);
+    res.json({ msg: "Данные добавленны" })
 }
 
-export const getGalleries = async function(req, res) {
+export async function getGalleries(req, res) {
 
     let galleryArr = await Gallery.find();
     let result = {};
@@ -38,30 +29,50 @@ export const getGalleries = async function(req, res) {
 };
 
 
-
 export async function deleteImage(req, res) {
     let date = req.body;
 
 
+
     fs.unlink(`${date.img}`, err => {
-        if (err) {
-            console.log(err)
-        };
+        if (err) throw err; // не удалось удалить файл
     });
 
     await Gallery.deleteOne({
         imgs: date.img
-    }).catch(()=> {
-        res.json({msg: 'Ошибка удаления'});
+    }).then(() => {
+        res.json({ msg: "Данные удалены" })
+    }).catch(() => {
+        res.json({ msg: "Ошибка при удалении" })
+    })
+};
+
+
+export async function deleteGallery(req, res) {
+    let date = req.body;
+
+    let list = await Gallery.find({
+        year: date.year
     });
 
+    for (let i = 0; i < list.length; i++) {
 
-    let galleryArr = await Gallery.find();
-    let result = {};
-    galleryArr.forEach((el) => {
+        fs.access(list[i].imgs, function (error) {
+            if (!error) {
+                fs.unlink(list[i].imgs, err => {
+                    if (err) {
+                        console.log(err);
+                    }; // не удалось удалить файл
+                });
+            }
+        });
+    }
 
-        result[el.year] != undefined ? result[el.year].push(el.imgs) : result[el.year] = [el.imgs];
+    await Gallery.deleteMany({
+        year: date.year
+    }).then(() => {
+        res.json({ msg: "Галлерея удалена" })
+    }).catch(() => {
+        res.json({ msg: "Ошибка при удалении" })
     })
-
-    res.json(result);
 };
