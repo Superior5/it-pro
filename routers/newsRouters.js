@@ -7,7 +7,7 @@ import fileMiddleware from '../middleware/file.js';
 const router = Router();
 
 router.get('/getNews', getNews);
-router.post('/upload', checkAccess, fileMiddleware.any(), uploadImage);
+router.post('/upload', fileMiddleware.any(), uploadImage);
 router.post('/addNews', checkAccess, addNews);
 router.post('/updateNews', checkAccess, updateNews);
 router.post('/deleteNews', checkAccess, deleteNews);
